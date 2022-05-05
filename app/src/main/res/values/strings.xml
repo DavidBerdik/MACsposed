@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MACsposed</string>
-
-    <string name="card_title_not_activated">Not activated</string>
-    <string name="card_detail_not_activated">Make sure you have correctly set up this module</string>
-
-    <string name="card_title_activated">Activated</string>
-    <string name="card_detail_activated">Go settings for further set up</string>
 </resources>
