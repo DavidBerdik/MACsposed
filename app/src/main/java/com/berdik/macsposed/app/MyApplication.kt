@@ -1,4 +1,4 @@
-package fuck.location.app
+package com.berdik.macsposed.app
 
 import android.app.Application
 import android.content.Context

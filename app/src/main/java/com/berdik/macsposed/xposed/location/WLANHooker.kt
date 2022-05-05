@@ -1,4 +1,4 @@
-package fuck.location.xposed.location
+package com.berdik.macsposed.xposed.location
 
 import android.annotation.SuppressLint
 import android.net.wifi.ScanResult
@@ -9,7 +9,6 @@ import com.github.kyuubiran.ezxhelper.utils.*
 import dalvik.system.PathClassLoader
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import fuck.location.xposed.helpers.ConfigGateway
 
 class WLANHooker {
     @RequiresApi(Build.VERSION_CODES.R)
@@ -35,20 +34,18 @@ class WLANHooker {
                                 val packageName = param.args[0] as String
                                 XposedBridge.log("FL: In getScanResults with caller: $packageName")
 
-                                if (ConfigGateway.get().inWhitelist(packageName)) {
-                                    XposedBridge.log("FL: in whitelist! Return custom WiFi information")
+                                XposedBridge.log("FL: in whitelist! Return custom WiFi information")
 
-                                    val customResult = ScanResult()
-                                    customResult.BSSID = ""
-                                    customResult.SSID = "AndroidAP"
-                                    customResult.capabilities = "WPA-2"
-                                    customResult.level = -1
+                                val customResult = ScanResult()
+                                customResult.BSSID = ""
+                                customResult.SSID = "AndroidAP"
+                                customResult.capabilities = "WPA-2"
+                                customResult.level = -1
 
-                                    val result: List<ScanResult> = listOf()
-                                    param.result = result
+                                val result: List<ScanResult> = listOf()
+                                param.result = result
 
-                                    XposedBridge.log("FL: BSSID: ${customResult.BSSID}, SSID: ${customResult.SSID}")
-                                }
+                                XposedBridge.log("FL: BSSID: ${customResult.BSSID}, SSID: ${customResult.SSID}")
                             }
                         }
 
@@ -59,19 +56,17 @@ class WLANHooker {
                                 val packageName = param.args[0] as String
                                 XposedBridge.log("FL: In getConnectionInfo with caller: $packageName")
 
-                                if (ConfigGateway.get().inWhitelist(packageName)) {
-                                    XposedBridge.log("FL: in whitelist! Return custom WiFi information")
+                                XposedBridge.log("FL: in whitelist! Return custom WiFi information")
 
-                                    val customResult = WifiInfo.Builder()
-                                        .setBssid("")
-                                        .setSsid("Android-AP".toByteArray())
-                                        .setRssi(-1)
-                                        .setNetworkId(0)
-                                        .build()
+                                val customResult = WifiInfo.Builder()
+                                    .setBssid("")
+                                    .setSsid("Android-AP".toByteArray())
+                                    .setRssi(-1)
+                                    .setNetworkId(0)
+                                    .build()
 
-                                    param.result = customResult
-                                    XposedBridge.log("FL: BSSID: ${customResult.bssid}, SSID: ${customResult.ssid}")
-                                }
+                                param.result = customResult
+                                XposedBridge.log("FL: BSSID: ${customResult.bssid}, SSID: ${customResult.ssid}")
                             }
                         }
 
