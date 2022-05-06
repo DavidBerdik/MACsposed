@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.Keep
 import com.berdik.macsposed.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -19,10 +18,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     @SuppressLint("CheckResult")
     override fun onClick(v: View) {
-    }
-
-    @Keep
-    fun isModuleActivated(): Boolean {
-        return true
     }
 }

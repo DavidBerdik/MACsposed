@@ -12,11 +12,6 @@
 #   public *;
 #}
 
--keep class fuck.location.xposed.HookEntry{*;}
--keepnames class fuck.location.xposed.HookEntry
--keep class de.robv.android.xposed.**{*;}
--keepnames class de.robv.android.xposed.**
-
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable

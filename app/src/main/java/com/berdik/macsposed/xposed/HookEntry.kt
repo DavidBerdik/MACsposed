@@ -21,13 +21,13 @@ class HookEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
             when (lpparam.packageName) {
                 "android" -> {
                     EzXHelperInit.initHandleLoadPackage(lpparam)
-                    EzXHelperInit.setLogTag("FuckLocation Xposed")
-                    EzXHelperInit.setToastTag("FL")
+                    EzXHelperInit.setLogTag("MACsposed")
+                    EzXHelperInit.setToastTag("MACsposed")
 
                     try {
                         WLANHooker().hookWifiManager(lpparam)
                     } catch (e: Exception) {
-                        XposedBridge.log("FL: fuck with exceptions: $e")
+                        XposedBridge.log("MACsposed Error: $e")
                     }
                 }
             }
