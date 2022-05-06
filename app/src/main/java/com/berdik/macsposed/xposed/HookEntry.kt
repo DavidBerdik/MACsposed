@@ -2,14 +2,11 @@ package com.berdik.macsposed.xposed
 
 import android.annotation.SuppressLint
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
-import com.github.kyuubiran.ezxhelper.utils.*
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import com.berdik.macsposed.BuildConfig
 
-import com.berdik.macsposed.xposed.location.WLANHooker
 import java.lang.Exception
 
 @ExperimentalStdlibApi

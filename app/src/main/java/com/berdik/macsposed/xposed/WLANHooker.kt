@@ -1,4 +1,4 @@
-package com.berdik.macsposed.xposed.location
+package com.berdik.macsposed.xposed
 
 import android.annotation.SuppressLint
 import android.net.MacAddress
