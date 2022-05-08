@@ -1,4 +1,4 @@
-package com.berdik.macsposed.xposed
+package com.berdik.macsposed
 
 import android.annotation.SuppressLint
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
@@ -9,7 +9,7 @@ import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
-class HookEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
+class MACsposed : IXposedHookZygoteInit, IXposedHookLoadPackage {
     override fun initZygote(startupParam: IXposedHookZygoteInit.StartupParam) {
         EzXHelperInit.initZygote(startupParam)
     }
