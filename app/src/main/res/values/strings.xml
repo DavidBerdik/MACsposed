@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MACsposed</string>
+    <string name="xposed_description">Add support for MAC Address spoofing to Android 12!</string>
 </resources>
