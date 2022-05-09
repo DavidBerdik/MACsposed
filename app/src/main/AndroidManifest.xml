@@ -13,9 +13,21 @@
             android:value="@string/xposed_description" />
         <meta-data
             android:name="xposedminversion"
-            android:value="53" />
+            android:value="93" />
         <meta-data
             android:name="xposedscope"
             android:resource="@array/xposed_scope" />
+
+        <service android:name=".QuickTile"
+            android:icon="@drawable/ic_baseline_router_24"
+            android:label="@string/tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
     </application>
 </manifest>

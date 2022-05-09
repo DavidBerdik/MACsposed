@@ -6,6 +6,7 @@ import com.github.kyuubiran.ezxhelper.utils.*
 import dalvik.system.PathClassLoader
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit
+import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
@@ -49,8 +50,19 @@ class MACsposed : IXposedHookZygoteInit, IXposedHookLoadPackage {
     private fun hookMacAddrSet(classloader: PathClassLoader) {
         findAllMethods(classloader.loadClass("com.android.server.wifi.WifiVendorHal")) {
             name == "setStaMacAddress" && isPublic
-        }.hookReplace {
-            true
+        }.hookMethod {
+            before { param ->
+                val prefs = XSharedPreferences(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID)
+
+                XposedBridge.log("HOOK TRIGGERED")
+                if (prefs.getBoolean("hookActive", false)) {
+                    XposedBridge.log("HOOK ON")
+                    param.result = true
+                }
+                else {
+                    XposedBridge.log("HOOK OFF")
+                }
+            }
         }
     }
 }
