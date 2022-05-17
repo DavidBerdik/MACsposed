@@ -53,7 +53,6 @@ class MACsposed : IXposedHookZygoteInit, IXposedHookLoadPackage {
         }.hookMethod {
             before { param ->
                 val prefs = XSharedPreferences(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID)
-
                 if (prefs.getBoolean("hookActive", false)) {
                     XposedBridge.log("[MACsposed] Blocked MAC address change to ${param.args[1]} on ${param.args[0]}.")
                     param.result = true
@@ -61,7 +60,8 @@ class MACsposed : IXposedHookZygoteInit, IXposedHookLoadPackage {
             }
 
             after { param ->
-                if (param.result as Boolean) {
+                val prefs = XSharedPreferences(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID)
+                if (param.result as Boolean && !prefs.getBoolean("hookActive", false)) {
                     XposedBridge.log("[MACsposed] Allowed MAC address change to ${param.args[1]} on ${param.args[0]}.")
                 }
             }
