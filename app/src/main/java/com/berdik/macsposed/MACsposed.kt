@@ -26,7 +26,7 @@ class MACsposed : IXposedHookZygoteInit, IXposedHookLoadPackage {
                     try {
                         hookWifiService(lpparam)
                     } catch (e: Exception) {
-                        XposedBridge.log("MACsposed Error: $e")
+                        XposedBridge.log("[MACsposed] MACsposed Error: $e")
                     }
                 }
             }
@@ -54,13 +54,15 @@ class MACsposed : IXposedHookZygoteInit, IXposedHookLoadPackage {
             before { param ->
                 val prefs = XSharedPreferences(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID)
 
-                XposedBridge.log("HOOK TRIGGERED")
                 if (prefs.getBoolean("hookActive", false)) {
-                    XposedBridge.log("HOOK ON")
+                    XposedBridge.log("[MACsposed] MACsposed blocked MAC address change to ${param.args[1]} on interface ${param.args[0]}.")
                     param.result = true
                 }
-                else {
-                    XposedBridge.log("HOOK OFF")
+            }
+
+            after { param ->
+                if (param.result as Boolean) {
+                    XposedBridge.log("[MACsposed] MACsposed allowed MAC address change to ${param.args[1]} on interface ${param.args[0]}.")
                 }
             }
         }
