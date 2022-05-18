@@ -1,5 +1,6 @@
 package com.berdik.macsposed
 
+import com.berdik.macsposed.hookers.SystemUIHooker
 import com.berdik.macsposed.hookers.WifiServiceHooker
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
 import de.robv.android.xposed.IXposedHookLoadPackage
@@ -22,6 +23,16 @@ class MACsposed : IXposedHookZygoteInit, IXposedHookLoadPackage {
                 "android" -> {
                     try {
                         WifiServiceHooker.hook(lpparam)
+                    } catch (e: Exception) {
+                        XposedBridge.log("[MACsposed] MACsposed Error: $e")
+                    }
+                }
+            }
+
+            when (lpparam.packageName) {
+                "com.android.systemui" -> {
+                    try {
+                        SystemUIHooker.hook(lpparam)
                     } catch (e: Exception) {
                         XposedBridge.log("[MACsposed] MACsposed Error: $e")
                     }
