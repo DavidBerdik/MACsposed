@@ -11,8 +11,8 @@ class SystemUIHooker {
     companion object {
         @SuppressLint("PrivateApi")
         fun hook(lpparam: XC_LoadPackage.LoadPackageParam) {
-            findAllMethods(lpparam.classLoader.loadClass("com.android.systemui.qs.QSTileRevealController")) {
-                name == "setExpansion" && isPublic
+            findAllMethods(lpparam.classLoader.loadClass("com.android.systemui.qs.QSPanelControllerBase")) {
+                name == "setRevealExpansion" && isPublic
             }.hookMethod {
                 before { param ->
                     if (param.args[0] == 1f)
