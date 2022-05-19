@@ -2,6 +2,7 @@ package com.berdik.macsposed.hookers
 
 import android.annotation.SuppressLint
 import android.util.ArraySet
+import com.berdik.macsposed.BuildConfig
 import com.github.kyuubiran.ezxhelper.utils.*
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -9,7 +10,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 class SystemUIHooker {
     companion object {
-        private const val tileId = "custom(com.berdik.macsposed/.QuickTile)"
+        private const val tileId = "custom(${BuildConfig.APPLICATION_ID}/.QuickTile)"
         private var tileAdded = false
         private var tileRevealed = false
 
