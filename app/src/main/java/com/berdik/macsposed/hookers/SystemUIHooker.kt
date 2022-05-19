@@ -9,8 +9,8 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 class SystemUIHooker {
     companion object {
-        val tileId = "custom(com.berdik.macsposed/.QuickTile)"
-        var tileAdded = false
+        private const val tileId = "custom(com.berdik.macsposed/.QuickTile)"
+        private var tileAdded = false
 
         @SuppressLint("PrivateApi")
         fun hook(lpparam: XC_LoadPackage.LoadPackageParam) {
@@ -27,6 +27,9 @@ class SystemUIHooker {
                 }
             }
 
+            // Properly fixing the unchecked cast warning with Kotlin adds more performance overhead than it is worth,
+            // so we are suppressing the warning instead.
+            @Suppress("UNCHECKED_CAST")
             findAllMethods(lpparam.classLoader.loadClass("com.android.systemui.qs.PagedTileLayout")) {
                 name == "startTileReveal" && isPublic
             }.hookMethod {
