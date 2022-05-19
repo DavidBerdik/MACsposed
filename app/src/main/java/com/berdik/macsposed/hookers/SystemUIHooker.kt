@@ -9,6 +9,8 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 class SystemUIHooker {
     companion object {
+        val tileId = "custom(com.berdik.macsposed/.QuickTile)"
+
         @SuppressLint("PrivateApi")
         fun hook(lpparam: XC_LoadPackage.LoadPackageParam) {
             findAllMethods(lpparam.classLoader.loadClass("com.android.systemui.qs.QSPanelControllerBase")) {
@@ -17,22 +19,8 @@ class SystemUIHooker {
                 before { param ->
                     if (param.args[0] == 1f) {
                         val tileHost = XposedHelpers.getObjectField(param.thisObject, "mHost")
-                        XposedHelpers.callMethod(tileHost, "addTile", "custom(com.berdik.macsposed/.QuickTile)", -1)
-                        val tileSpecs = XposedHelpers.getObjectField(tileHost, "mTileSpecs") as ArrayList<String>
-                        XposedBridge.log("[MACsposed] PANEL OPENED! - tileSpecs $tileSpecs")
-                    }
-                }
-            }
-
-            findAllMethods(lpparam.classLoader.loadClass("com.android.systemui.qs.QSTileRevealController")) {
-                name == "setExpansion" && isPublic
-            }.hookMethod {
-                before { param ->
-                    if (param.args[0] == 1f) {
-                        val tilesToReveal = XposedHelpers.getObjectField(param.thisObject, "mTilesToReveal") as ArraySet<String>
-                        tilesToReveal.add("custom(com.berdik.macsposed/.QuickTile)")
-                        XposedHelpers.setObjectField(param.thisObject, "mTilesToReveal", tilesToReveal)
-                        XposedBridge.log("[MACsposed] Hooked setExpansion in TileRevealController - ${tilesToReveal}")
+                        XposedHelpers.callMethod(tileHost, "addTile", tileId, -1)
+                        XposedBridge.log("[MACsposed] PANEL OPENED!")
                     }
                 }
             }
@@ -41,7 +29,9 @@ class SystemUIHooker {
                 name == "startTileReveal" && isPublic
             }.hookMethod {
                 before { param ->
-                    XposedBridge.log("[MACsposed] Hooked startTileReveal in PagedTileLayout, ${param.args[0]}; ${param.args[1]}")
+                    val tilesToReveal = param.args[0] as ArraySet<String>
+                    tilesToReveal.add(tileId)
+                    XposedBridge.log("[MACsposed] Hooked startTileReveal in PagedTileLayout, ${param.args[0]}")
                 }
             }
         }
