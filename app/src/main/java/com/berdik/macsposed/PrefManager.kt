@@ -17,6 +17,7 @@ class PrefManager {
         fun loadPrefs(context: Context) {
             if (prefs == null) {
                 prefs = context.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_WORLD_READABLE)
+                markTileRevealAsDone()
             }
         }
 
@@ -31,6 +32,12 @@ class PrefManager {
             hookActive = !isHookOn()
             val prefEdit = prefs!!.edit()
             prefEdit.putBoolean("hookActive", hookActive!!)
+            prefEdit.apply()
+        }
+
+        private fun markTileRevealAsDone() {
+            val prefEdit = prefs!!.edit()
+            prefEdit.putBoolean("tileRevealDone", true)
             prefEdit.apply()
         }
     }

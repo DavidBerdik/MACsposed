@@ -11,6 +11,7 @@ class SystemUIHooker {
     companion object {
         private const val tileId = "custom(com.berdik.macsposed/.QuickTile)"
         private var tileAdded = false
+        private var tileRevealed = false
 
         @SuppressLint("PrivateApi")
         fun hook(lpparam: XC_LoadPackage.LoadPackageParam) {
@@ -21,7 +22,7 @@ class SystemUIHooker {
                     if (!tileAdded) {
                         val tileHost = XposedHelpers.getObjectField(param.thisObject, "mHost")
                         XposedHelpers.callMethod(tileHost, "addTile", tileId, -1)
-                        XposedBridge.log("[MACsposed] Tile added!")
+                        XposedBridge.log("[MACsposed] Tile added to quick settings panel.")
                         tileAdded = true
                     }
                 }
@@ -34,9 +35,12 @@ class SystemUIHooker {
                 name == "startTileReveal" && isPublic
             }.hookMethod {
                 before { param ->
-                    val tilesToReveal = param.args[0] as ArraySet<String>
-                    tilesToReveal.add(tileId)
-                    XposedBridge.log("[MACsposed] Tile revealed!")
+                    if (!tileRevealed) {
+                        val tilesToReveal = param.args[0] as ArraySet<String>
+                        tilesToReveal.add(tileId)
+                        XposedBridge.log("[MACsposed] Tile reveal animation played.")
+                        tileRevealed = true
+                    }
                 }
             }
         }

@@ -5,6 +5,7 @@ import com.berdik.macsposed.hookers.WifiServiceHooker
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit
+import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
@@ -24,17 +25,21 @@ class MACsposed : IXposedHookZygoteInit, IXposedHookLoadPackage {
                     try {
                         WifiServiceHooker.hook(lpparam)
                     } catch (e: Exception) {
-                        XposedBridge.log("[MACsposed] MACsposed Error: $e")
+                        XposedBridge.log("[MACsposed] ERROR: $e")
                     }
                 }
             }
 
             when (lpparam.packageName) {
                 "com.android.systemui" -> {
-                    try {
-                        SystemUIHooker.hook(lpparam)
-                    } catch (e: Exception) {
-                        XposedBridge.log("[MACsposed] MACsposed Error: $e")
+                    val prefs = XSharedPreferences(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID)
+                    if (!prefs.getBoolean("tileRevealDone", false)) {
+                        try {
+                            XposedBridge.log("[MACsposed] Hooking System UI to add and reveal quick settings tile.")
+                            SystemUIHooker.hook(lpparam)
+                        } catch (e: Exception) {
+                            XposedBridge.log("[MACsposed] ERROR: $e")
+                        }
                     }
                 }
             }
