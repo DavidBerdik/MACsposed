@@ -7,7 +7,28 @@ To use MACsposed:
 1. Install LSposed. This requires your device to be rooted with Magisk. Installation instructions for LSPosed are available [here](https://github.com/LSPosed/LSPosed#install).
 2. Install MACsposed.
 3. Activate the MACsposed module in the LSposed user interface.
+
+<p align="center">
+  <img src="play-store-images/screenshots/1.png" width="300" />
+  <img src="play-store-images/screenshots/2.png" width="300" />
+</p>
+
 4. Reboot your device and sign in.
+
+<p align="center">
+  <img src="play-store-images/screenshots/3.png" width="300" />
+</p>
+
 5. Open the quick settings panel. The MACsposed tile will appear.
+
+<p align="center">
+  <img src="play-store-images/screenshots/4.png" width="300" />
+</p>
+
 6. Toggle the MACsposed tile on or off to enable or disable it.
 7. Use your favorite tool for setting a custom MAC address!
+
+<p align="center">
+  <img src="play-store-images/screenshots/5.png" width="300" />
+  <img src="play-store-images/screenshots/6.png" width="300" />
+</p>
