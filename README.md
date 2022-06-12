@@ -3,6 +3,12 @@ Historically, setting a custom MAC address on Android was very easy for rooted u
 
 **⚠️ WARNING:** MACsposed is intended for rooted devices running Android 12 and requires Xposed. The recommended Xposed variant to use is LSPosed. Other Xposed variants may work, but have not been tested. Additionally, this module cannot be guaranteed to work on all devices. In the worst case, it can cause a bootloop. Use at your own risk.
 
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=com.berdik.macsposed">
+    <img src="play-store-images/google-play-badge.png" height="80" />
+  </a>
+</p>
+
 To use MACsposed:
 1. Install LSposed. This requires your device to be rooted with Magisk. Installation instructions for LSPosed are available [here](https://github.com/LSPosed/LSPosed#install).
 2. Install MACsposed.
