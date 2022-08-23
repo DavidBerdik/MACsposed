@@ -13,7 +13,7 @@ class WifiServiceHooker {
         @SuppressLint("PrivateApi")
         fun hook(lpparam: XC_LoadPackage.LoadPackageParam) {
             findAllMethods(lpparam.classLoader.loadClass("com.android.server.SystemServiceManager")) {
-                name == "loadClassFromLoader" && isPrivate && isStatic
+                name == "loadClassFromLoader" && isStatic
             }.hookMethod {
                 after { param ->
                     if (param.args[0] == "com.android.server.wifi.WifiService") {
