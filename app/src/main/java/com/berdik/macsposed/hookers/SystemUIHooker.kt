@@ -52,15 +52,17 @@ class SystemUIHooker {
             // Properly fixing the unchecked cast warning with Kotlin adds more performance overhead than it is worth,
             // so we are suppressing the warning instead.
             @Suppress("UNCHECKED_CAST")
-            findAllMethods(lpparam.classLoader.loadClass("com.android.systemui.qs.PagedTileLayout")) {
-                name == "startTileReveal" && isPublic
+            findAllMethods(lpparam.classLoader.loadClass("com.android.systemui.qs.QSTileRevealController\$1")) {
+                name == "run"
             }.hookMethod {
                 before { param ->
                     if (!tileRevealed) {
-                        val tilesToReveal = param.args[0] as ArraySet<String>
+                        val tilesToReveal = XposedHelpers.getObjectField(XposedHelpers.getSurroundingThis(param.thisObject),
+                            "mTilesToReveal") as ArraySet<String>
                         tilesToReveal.add(tileId)
-                        XposedBridge.log("[MACsposed] Tile reveal animation played.")
                         tileRevealed = true
+                        XposedBridge.log("[MACsposed] Tile quick settings panel animation played. " +
+                                "MACsposed will not hook SystemUI on next reboot.")
                     }
                 }
             }
