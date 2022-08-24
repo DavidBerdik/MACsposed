@@ -38,7 +38,7 @@ class SystemUIHooker {
                             // Used by Android 13 Pixel 4a August 2022 Factory Image.
                             XposedHelpers.callMethod(tileHost, "addTile", -1, tileId)
                         }
-                        catch (e: Exception) {
+                        catch (t: Throwable) {
                             // Used by Android 12, and possibly some Android 13 distros.
                             XposedHelpers.callMethod(tileHost, "addTile", tileId)
                         }
