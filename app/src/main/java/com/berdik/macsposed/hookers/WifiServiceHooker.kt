@@ -25,20 +25,28 @@ class WifiServiceHooker {
 
         @SuppressLint("PrivateApi")
         private fun hookMacAddrSet(classloader: PathClassLoader) {
-            findAllMethods(classloader.loadClass("com.android.server.wifi.WifiVendorHal")) {
+            val wifiVendorHalClass = classloader.loadClass("com.android.server.wifi.WifiVendorHal")
+            findAllMethods(wifiVendorHalClass) {
                 name == "setStaMacAddress" && isPublic
             }.hookMethod {
+                var isHookActive = false
+
                 before { param ->
+                    // Get the active state of the hook.
                     val prefs = XSharedPreferences(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID)
-                    if (prefs.getBoolean("hookActive", false)) {
+                    isHookActive = prefs.getBoolean("hookActive", false)
+
+                    // If the hook is active, log a block of the MAC address change and bypass the real function.
+                    if (isHookActive) {
                         XposedBridge.log("[MACsposed] Blocked MAC address change to ${param.args[1]} on ${param.args[0]}.")
                         param.result = true
                     }
                 }
 
                 after { param ->
-                    val prefs = XSharedPreferences(BuildConfig.APPLICATION_ID, BuildConfig.APPLICATION_ID)
-                    if (param.result as Boolean && !prefs.getBoolean("hookActive", false)) {
+                    // If the hook is active and the result of the address change attempt was successful, make a log entry
+                    // after the real function executes indicating so.
+                    if (param.result as Boolean && isHookActive) {
                         XposedBridge.log("[MACsposed] Allowed MAC address change to ${param.args[1]} on ${param.args[0]}.")
                     }
                 }
