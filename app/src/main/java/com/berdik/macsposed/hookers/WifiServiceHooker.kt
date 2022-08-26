@@ -26,8 +26,13 @@ class WifiServiceHooker {
         @SuppressLint("PrivateApi")
         private fun hookMacAddrSet(classloader: PathClassLoader) {
             val wifiVendorHalClass = classloader.loadClass("com.android.server.wifi.WifiVendorHal")
+            macAddrSetGenericHook(wifiVendorHalClass, "setStaMacAddress")
+            macAddrSetGenericHook(wifiVendorHalClass, "setApMacAddress")
+        }
+
+        private fun macAddrSetGenericHook(wifiVendorHalClass: Class<*>, functionName: String) {
             findAllMethods(wifiVendorHalClass) {
-                name == "setStaMacAddress" && isPublic
+                name == functionName
             }.hookMethod {
                 var isHookActive = false
 
