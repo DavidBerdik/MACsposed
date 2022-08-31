@@ -1,0 +1,1 @@
+Add support for MAC Address spoofing to Android 12 and 13!

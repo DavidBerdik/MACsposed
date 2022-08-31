@@ -1,0 +1,1 @@
+This release fixes an issue with the MACsposed tile not being automatically added to the Quick Settings Panel for some devices on Android 13. Additionally, this release improves the method used for blocking Android's MAC address randomizer.
