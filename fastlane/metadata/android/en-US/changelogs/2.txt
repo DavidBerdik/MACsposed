@@ -1,0 +1,1 @@
+The initial release of MACsposed only supported Android 12L by accident. This release corrects that error so that the module may be used on Android 12 as well.

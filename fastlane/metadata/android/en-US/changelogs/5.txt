@@ -1,0 +1,1 @@
+This release fixes a logging bug that was inadvertently introduced as part of the changes made to MACsposed v1.1.1. The bug caused log entries made when MACsposed either allowed or blocked a MAC address change to not be written properly.
