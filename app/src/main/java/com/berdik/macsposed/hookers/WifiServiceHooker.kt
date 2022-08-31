@@ -51,7 +51,7 @@ class WifiServiceHooker {
                 after { param ->
                     // If the hook is active and the result of the address change attempt was successful, make a log entry
                     // after the real function executes indicating so.
-                    if (param.result as Boolean && isHookActive) {
+                    if (param.result as Boolean && !isHookActive) {
                         XposedBridge.log("[MACsposed] Allowed MAC address change to ${param.args[1]} on ${param.args[0]}.")
                     }
                 }
