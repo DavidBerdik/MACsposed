@@ -9,6 +9,9 @@ Historically, setting a custom MAC address on Android was very easy for rooted u
   <a href="https://play.google.com/store/apps/details?id=com.berdik.macsposed">
     <img src="play-store-images/google-play-badge.png" height="80" />
   </a>
+  <a href="https://f-droid.org/packages/com.berdik.macsposed/">
+    <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="80" />
+  </a>
   <a href="https://github.com/DavidBerdik/MACsposed/releases">
     <img src="play-store-images/badge_github.png" height="80" />
   </a>
